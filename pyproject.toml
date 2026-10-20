@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "powervolcano"
+version = "0.1.0"
+description = "Power-aware volcano plots for any effect-scale results table (estimate, SE, df)"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Tiago Paixao" }]
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.22", "scipy>=1.9", "matplotlib>=3.5"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools.packages.find]
+include = ["powervolcano*"]
