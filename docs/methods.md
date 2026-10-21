@@ -10,6 +10,42 @@ sees the underlying design matrix, count model, or likelihood: the three
 numbers `(theta, se, df)` are the whole interface, which is what makes it
 model-agnostic.
 
+## Test-family assumptions
+
+The `(theta, se, df)` interface encodes a Wald-style assumption: the null
+distribution of the statistic `theta/se` must be standard normal (`df =
+None`) or Student t with the residual df (finite df). The covered
+families:
+
+- Wald z-tests (the `df=None` case), including DESeq2 Wald tables, whose
+  p-values are normal-based by construction;
+- plain two-sample t-tests and Welch t-tests with the design df;
+- limma moderated t with the residual df and, for a fitted eBayes
+  object, the empirical-Bayes df (`df.prior + df.residual`) as a
+  per-gene array;
+- edgeR quasi-likelihood F-tests, since an `F(1, df)` is a squared t, so
+  the same two-sided power machinery applies with the QL denominator df.
+
+Explicitly excluded, because the effect is not proportional to the test
+statistic: rank-based tests (Wilcoxon, Kolmogorov-Smirnov,
+permutation-style rank tests), likelihood-ratio and score tests
+referenced to a chi-square (the statistic is not `theta/se` scaled to a
+t or z under chi-square), and any test whose p-value does not have
+`theta/se` as its statistic. For these, `power` has no meaning and
+`se_from_pvalue` silently produces garbage; reject them upstream.
+
+Two further assumptions hold only approximately, and only with finite
+df:
+
+- one `(theta, se, df)` triple fully characterizes the null reference
+  per feature (homoskedastic t-flavored behavior);
+- theta is not rescaled independently of its SE. Shrunken estimators
+  (apeglm-style log2FC shrinkage, where theta is shrunk but the SE is
+  not, or vice versa) bias the plug-in noncentrality `theta/se`, so
+  power values for shrunk tables are not trustworthy directly; run them
+  on the unshrunken Wald table.
+
+
 ## Plug-in power
 
 Power is evaluated conditional on the observed SE:

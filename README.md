@@ -12,6 +12,8 @@ Every function takes `(estimate, se, df)` arrays:
 - `se`: its standard error, same units;
 - `df`: residual degrees of freedom. `None` means the asymptotic (z) assumption; a finite value switches to the noncentral t family, exact for t statistics and recovering z as df grows.
 
+Statistically, this is a Wald-style assumption: the null reference of the statistic `estimate/se` must be standard normal (`df=None`) or Student t with the residual df (finite df). That covers Wald z-tests, plain t-tests, limma moderated t, and edgeR quasi-likelihood F-tests (an `F(1, df)` is just a squared t). It explicitly excludes anything where the effect is not proportional to the test statistic: rank-based tests (Wilcoxon, Kolmogorov-Smirnov), likelihood-ratio or score tests referenced to chi-square, and permutation p-values; for those, `se_from_pvalue` returns garbage and `power` is meaningless. With finite df the package also assumes one `(estimate, se, df)` triple fully characterizes the reference distribution per feature: shrunken effect estimators (apeglm-style log2FC shrinkage, where theta is shrunk but the SE is not) bias the plug-in noncentrality.
+
 ## The math
 
 Power is plug-in (conditional on the observed SE, a prediction, not a posterior):
@@ -96,6 +98,7 @@ Two-sided t power is computed through the noncentral F (`|T| > t*` iff `T^2 > t*
 
 - Plug-in SE throughout: power conditional on the observed SE is a prediction, not a posterior statement.
 - The inversion needs raw p-values from effect-scale tests.
+- The statistical contract is a Wald-style one: null reference of `estimate/se` is normal (df=None) or Student t (finite df). Rank-based tests, LRT/score tests with chi-square reference, and permutation p-values are out of scope; see the "Test-family assumptions" section of docs/methods.md for the full list of covered families and the shrunken-estimator caveat.
 - For paired or longitudinal designs the df (and the n behind prospective scaling) must come from the design; Satterthwaite or Kenward-Roger values plug in directly as per-gene df arrays.
 
 ## Development
