@@ -49,6 +49,14 @@ se = se_from_pvalue(theta, p_raw, df=df)   # SE = |theta| / q_{1 - p/2}
 
 Exact recovery, provided the p-value is raw (FDR-adjusted p breaks the inversion) and comes from an effect-scale test (Wald, t, moderated t). Rank-based tests must be rejected upstream: there the effect is not the test statistic, so no SE lives in the p-value. Genes with `estimate == 0` or `pvalue == 1` return nan. Two precision notes: the quantile is taken with `isf(p/2)`, not `ppf(1 - p/2)`, because the latter loses all precision for p below ~1e-16; and if the underlying test was a t but you invert with the z quantile, the recovered SE is inflated by the factor t*/z* (1.14x at df = 10, 2.2x at df = 2), which is silently conservative. DESeq2 is self-consistent here as a unit test: its Wald p-values are normal-based, so the recovered SE matches `lfcSE` to machine precision.
 
+## Documentation
+
+Markdown docs in `docs/`:
+
+- [Getting started](docs/index.md): install and minimal tour
+- [API reference](docs/api.md): every function, arguments, guarantees
+- [Methods](docs/methods.md): the math, the numerics, the unknown-df geometry
+
 ## Quickstart
 
 ```python
