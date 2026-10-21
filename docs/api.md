@@ -3,10 +3,10 @@
 All functions operate elementwise and broadcast their inputs. Arrays
 returned are numpy arrays; scalars in, scalars out where noted.
 
-The shared statistical contract: every function treats `estimate/se` as
+The common statistical assumptions: every function treats `estimate/se` as
 the test statistic with null reference normal (`df=None`) or Student t
 with the residual df. Rank-based tests, LRT/score tests with chi-square
-reference, and permutation p-values are outside this contract (see
+reference, and permutation p-values do not satisfy these assumptions (see
 methods.md, "Test-family assumptions").
 
 ## `power(estimate, se, df=None, alpha=0.05)`

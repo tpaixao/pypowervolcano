@@ -4,7 +4,7 @@ Power-aware volcano plots for any effect-scale results table. Model-agnostic by 
 
 Companion to the R package [volcano_power_plots](https://github.com/tpaixao/volcano_power_plots), which is DESeq2-specific; this one implements the generalized core and is deliberately adapter-free.
 
-## The contract
+## Inputs and assumptions
 
 Every function takes `(estimate, se, df)` arrays:
 
@@ -98,7 +98,7 @@ Two-sided t power is computed through the noncentral F (`|T| > t*` iff `T^2 > t*
 
 - Plug-in SE throughout: power conditional on the observed SE is a prediction, not a posterior statement.
 - The inversion needs raw p-values from effect-scale tests.
-- The statistical contract is a Wald-style one: null reference of `estimate/se` is normal (df=None) or Student t (finite df). Rank-based tests, LRT/score tests with chi-square reference, and permutation p-values are out of scope; see the "Test-family assumptions" section of docs/methods.md for the full list of covered families and the shrunken-estimator caveat.
+- The statistics assume a Wald-style test: null reference of `estimate/se` is normal (df=None) or Student t (finite df). Rank-based tests, LRT/score tests with chi-square reference, and permutation p-values are out of scope; see the "Test-family assumptions" section of docs/methods.md for the full list of covered families and the shrunken-estimator caveat.
 - For paired or longitudinal designs the df (and the n behind prospective scaling) must come from the design; Satterthwaite or Kenward-Roger values plug in directly as per-gene df arrays.
 
 ## Development
