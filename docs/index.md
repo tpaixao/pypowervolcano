@@ -1,4 +1,4 @@
-# powervolcano docs
+# pypowervolcano docs
 
 Power-aware volcano plots for any effect-scale results table. The package
 needs exactly three inputs per feature: the effect estimate, its standard
@@ -12,8 +12,8 @@ error, and the residual degrees of freedom.
 ## Installation
 
 ```bash
-git clone https://github.com/tpaixao/powervolcano
-cd powervolcano
+git clone https://github.com/tpaixao/pypowervolcano
+cd pypowervolcano
 uv venv .venv && uv pip install -e . --python .venv/bin/python
 ```
 
@@ -29,7 +29,7 @@ Dependencies: numpy, scipy, matplotlib (Python >= 3.10).
 
 ```python
 import numpy as np
-from powervolcano import power, power_bounds, mde, se_from_pvalue, volcano
+from pypowervolcano import power, power_bounds, mde, se_from_pvalue, volcano
 
 power(2.0, 0.9, df=4)     # exact two-sided power, noncentral t
 power_bounds(2.0, 0.9)    # df unknown: [power at df=2, power at z]
@@ -47,12 +47,12 @@ fig, ax = volcano(theta, se, pvalue=p, df=None)    # df unknown (band)
 
 ## Where it fits
 
-powervolcano is the model-agnostic generalization of the R package
+pypowervolcano is the model-agnostic generalization of the R package
 [volcano_power_plots](https://github.com/tpaixao/volcano_power_plots).
 
 - R / volcanoPower: DESeq2-specific (LRT and Wald, per-gene df from the
   LRT denominator).
-- Python / powervolcano: takes `(estimate, se, df)` and nothing else.
+- Python / pypowervolcano: takes `(estimate, se, df)` and nothing else.
   DESeq2 Wald tables plug in directly (`log2FoldChange`, `lfcSE`, no df);
   limma moderated t, edgeR quasi-likelihood, and linear mixed models plug
   in their per-gene df (Satterthwaite or Kenward-Roger).

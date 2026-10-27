@@ -1,4 +1,4 @@
-# powervolcano
+# pypowervolcano
 
 Power-aware volcano plots for any effect-scale results table. Model-agnostic by construction: the package never sees a DESeq2, edgeR or limma object, it only needs the three numbers that determine statistical power: the effect estimate, its standard error, and the residual degrees of freedom.
 
@@ -31,7 +31,7 @@ Key structural fact: with fixed `(df, alpha)` the statistic `|theta/se|` is suff
 If the residual df is genuinely unknown, the z assumption is not silent: at alpha = 0.05 the critical value is 4.30 at df = 2 versus 1.96 under z, so the same effect/SE ratio that looks comfortably powered under z may be undetectable under t (at ncp = 2, z-based power is 0.52 versus 0.22 at df = 2). Instead of a point default, the package brackets the truth:
 
 ```python
-from powervolcano import power_bounds, mde_bounds
+from pypowervolcano import power_bounds, mde_bounds
 
 lo, hi = power_bounds(theta, se)   # (power at df=2, power at z)
 m_lo, m_hi = mde_bounds(se)        # (MDE at z, MDE at df=2)
@@ -44,7 +44,7 @@ In the volcano plot the unknown-df regime colors points by the conservative boun
 Any tool that reports an effect and a raw two-sided p-value has already told you the SE:
 
 ```python
-from powervolcano import se_from_pvalue
+from pypowervolcano import se_from_pvalue
 
 se = se_from_pvalue(theta, p_raw, df=df)   # SE = |theta| / q_{1 - p/2}
 ```
@@ -63,7 +63,7 @@ Markdown docs in `docs/`:
 
 ```python
 import numpy as np
-from powervolcano import power, power_bounds, se_from_pvalue, mde, volcano
+from pypowervolcano import power, power_bounds, se_from_pvalue, mde, volcano
 
 pw = power(theta, se, df=4)        # exact noncentral-t power, vectorized
 lo, hi = power_bounds(theta, se)   # df unknown: [df=2, z] interval

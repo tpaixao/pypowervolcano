@@ -33,7 +33,7 @@ methods) rather than `scipy.stats.nct`, which returns NaN for `|ncp|`
 beyond roughly 8 at small df.
 
 ```python
-from powervolcano import power
+from pypowervolcano import power
 power(1.0, 0.5, df=4)       # 0.336
 power(1.0, 0.5)             # 0.516 (z reference)
 lo, hi = power_bounds(2.0, 0.9)   # (0.253, 0.603)
@@ -53,7 +53,7 @@ overstates detectability for small-n designs: at ncp = 2, z power is 0.52
 versus 0.22 at df = 2.
 
 ```python
-from powervolcano import power_bounds
+from pypowervolcano import power_bounds
 lo, hi = power_bounds(2.0, 0.9)   # (0.253, 0.603)
 ```
 
@@ -66,7 +66,7 @@ noncentrality; the familiar closed form
 ignores the opposite tail. `target_power` must lie in `(alpha, 1)`.
 
 ```python
-from powervolcano import mde
+from pypowervolcano import mde
 mde(0.5, df=4, target_power=0.8)   # 1.881...
 ```
 
@@ -87,7 +87,7 @@ p-value. This is what makes the frontier model-agnostic: placing it needs
 no per-gene SE, only `(df, alpha, target)`.
 
 ```python
-from powervolcano import p_at_power
+from pypowervolcano import p_at_power
 p_at_power(0.8, df=4)    # 0.0198 at alpha=0.05
 p_at_power(0.8, df=None) # 0.0051 (z frontier, higher on the plot)
 ```

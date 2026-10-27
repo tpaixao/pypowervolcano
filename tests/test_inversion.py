@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from scipy import stats
 
-from powervolcano import pvalue, se_from_pvalue
+from pypowervolcano import pvalue, se_from_pvalue
 
 RNG = np.random.default_rng(7)
 

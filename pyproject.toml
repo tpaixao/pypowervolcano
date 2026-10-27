@@ -3,7 +3,7 @@ requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "powervolcano"
+name = "pypowervolcano"
 version = "0.1.0"
 description = "Power-aware volcano plots for any effect-scale results table (estimate, SE, df)"
 readme = "README.md"
@@ -16,4 +16,4 @@ dependencies = ["numpy>=1.22", "scipy>=1.9", "matplotlib>=3.5"]
 test = ["pytest"]
 
 [tool.setuptools.packages.find]
-include = ["powervolcano*"]
+include = ["pypowervolcano*"]

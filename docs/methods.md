@@ -5,7 +5,7 @@
 Per feature, the upstream model reported an effect estimate `theta`, its
 standard error `se`, and (optionally) the residual degrees of freedom
 `df`. The test statistic is `T = theta/se + noise`; under the null it is
-standard normal (z reference) or Student t with `df`. `powervolcano` never
+standard normal (z reference) or Student t with `df`. `pypowervolcano` never
 sees the underlying design matrix, count model, or likelihood: the three
 numbers `(theta, se, df)` are the whole interface, which is what makes it
 model-agnostic.
@@ -66,7 +66,7 @@ are included, so `power(0, se) == alpha` exactly.
 scipy's `stats.nct` is numerically unreliable for two-sided power at
 large noncentrality: it returns NaN for `|ncp|` beyond roughly 8 at small
 df, exactly the regime where a power-aware volcano is most interesting
-(strong effects, few residual df, e.g. 3 vs 3 designs). powervolcano
+(strong effects, few residual df, e.g. 3 vs 3 designs). pypowervolcano
 computes two-sided t power through the noncentral F distribution:
 
 ```
@@ -109,7 +109,7 @@ df = 2 power 0.22). z-based power therefore materially overstates
 detectability exactly for the small-n designs where the question matters
 (3 vs 3, residual df 4).
 
-powervolcano brackets instead of guessing:
+pypowervolcano brackets instead of guessing:
 
 - **power**: `power_bounds(theta, se)` returns `[power(df_low), power(z)]`;
   the true power for any df in `[df_low, inf)` lies inside. Width of the

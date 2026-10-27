@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy import stats
 
-from powervolcano import volcano
+from pypowervolcano import volcano
 
 rng = np.random.default_rng(42)
 n = 800

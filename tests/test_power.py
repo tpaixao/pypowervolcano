@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from scipy import stats
 
-from powervolcano import mde, mde_bounds, p_at_power, power, power_bounds, power_table
+from pypowervolcano import mde, mde_bounds, p_at_power, power, power_bounds, power_table
 
 ALPHA = 0.05
 

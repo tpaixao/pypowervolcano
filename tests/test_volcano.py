@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 from scipy import stats
 
-from powervolcano import volcano
+from pypowervolcano import volcano
 
 
 @pytest.fixture()
